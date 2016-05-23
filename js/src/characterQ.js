@@ -69,8 +69,10 @@
         
         //test
         animate();
+        CharacterQ.Component.loadModel({type:CharacterQ.ComponentType.handholding});
         
         window.addEventListener( 'resize', CharacterQ.onWindowResize, false );
+        document.addEventListener( 'mousemove', onDocumentMouseMove, false );
     }
     
     //temp test
