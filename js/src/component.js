@@ -21,6 +21,13 @@
         environment:13,
         glasses: 14
     };
+
+    // CharacterQ.ComponentType = [
+    //     'hair',
+    //     'face',
+    //     'eye',
+
+    // ];
     
     var objLoader = new THREE.OBJLoader();
     var mtlLoader = new THREE.MTLLoader();
@@ -30,39 +37,42 @@
      * @param {String} params.modelURL
      * @param {String} params.mtlURL
      */
-    CharacterQ.Component.prototype.loadModel = function (params, onload, error) {
+    CharacterQ.Component.loadModel = function (params, onload, onError) {
                 
         if(!params.type) {
             console.error('component params type is undefined!');
         }
         
-        if(!params.url) {
-            console.error('component params url is undefined!');
+        if(!params.format) {
+            console.error('component params format is undefined!');
         }
         
-        error = error || function (msg) {
+        onError = onError || function (msg) {
             Human.log.error("CharacterQ.Component.loadModel", msg);
             ok();
         };
         
-        //this.type = params.type;
-        //this.url = params.url;
-        var type = params.type;
-        var url = params.url;
-        
-        //test
-        mtlLoader.setBaseUrl('obj/sword/');
-        mtlLoader.setPath('obj/sword/');
-        mtlLoader.load('Sword07_obj.mtl', function(materials) {
-            materials.preload();
+
+        if (params.format == 'obj') {
             
-            objLoader.setMaterials(materials);
-            objLoader.setPath('obj/sword/');
-            objLoader.load('Sword07_obj.obj', function(object){
-                object.position.y = -100;
-                CharacterQ.scene.add(object);
+            //test
+            mtlLoader.setBaseUrl(params.baseUrl); //texture base path
+            mtlLoader.setPath(params.baseUrl);    //mtl base path
+            mtlLoader.load(params.mtlName, function(materials) {
+                materials.preload();
+                
+                objLoader.setMaterials(materials);
+                objLoader.setPath(params.baseUrl);
+                objLoader.load(params.objName, function(object){
+                    // TODO: temp position
+                    // should get position / bind to character according to ComponentType
+                    object.position.y = -100;
+                    CharacterQ.scene.add(object);
+                });
             });
-        });
+        }
+
+        
     }
     
     

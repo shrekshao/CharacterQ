@@ -1,8 +1,11 @@
+// The whole app manager
 (function(){
     'use strict';
     
     var CharacterQ = window.CharacterQ = {};
     
+    CharacterQ.character = null;
+
     CharacterQ.init = function() {
         var scene = CharacterQ.scene = new THREE.Scene();
         //CharacterQ.camera = new THREE.PerspectiveCamera();
@@ -35,6 +38,21 @@
         directionalLight.position.set( 0, 0, 1 ).normalize();
         scene.add( directionalLight );
         
+        // ground
+        var ground = null;
+        var groundMaterial = new THREE.MeshPhongMaterial({
+                color: 0xdddddd,
+                shading: THREE.SmoothShading,
+            });
+        ground = new THREE.Mesh( new THREE.PlaneBufferGeometry(512, 512), groundMaterial);
+        
+        ground.receiveShadow = true;
+                
+        ground.position.y = -100;
+        
+        ground.rotation.x = -Math.PI / 2;
+        scene.add(ground);
+
         // model
         var onProgress = function ( xhr ) {
             if ( xhr.lengthComputable ) {
@@ -60,19 +78,25 @@
             objLoader.load( 'male02.obj', function ( object ) {
 
                 object.position.y = - 95;
+                object.receiveShadow = true;
                 scene.add( object );
 
             }, onProgress, onError );
 
         });
-
-        
-        //test
-        animate();
-        CharacterQ.Component.loadModel({type:CharacterQ.ComponentType.handholding});
-        
+      
         window.addEventListener( 'resize', CharacterQ.onWindowResize, false );
         document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+        //test
+        animate();
+        CharacterQ.Component.loadModel({
+            type: CharacterQ.ComponentType.handholding,
+            format: 'obj',
+            baseUrl: 'obj/sword/',
+            mtlName: 'Sword07_obj.mtl',
+            objName: 'Sword07_obj.obj'
+        });
     }
     
     //temp test
