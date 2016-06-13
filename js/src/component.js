@@ -30,7 +30,7 @@
      * @param {String} params.modelURL
      * @param {String} params.mtlURL
      */
-    CharacterQ.Component.loadModel = function (params, onload, error) {
+    CharacterQ.Component.prototype.loadModel = function (params, onload, error) {
                 
         if(!params.type) {
             console.error('component params type is undefined!');
@@ -41,7 +41,7 @@
         }
         
         error = error || function (msg) {
-            Human.log.error("Human.view.camera.fly", msg);
+            Human.log.error("CharacterQ.Component.loadModel", msg);
             ok();
         };
         

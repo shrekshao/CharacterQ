@@ -20,6 +20,7 @@
     }
     
     CharacterQ.loadCharacter = function(characterJson) {
+        // parse through the character json and load related part
         for( item in CharacterQ.ComponentType) {
             if( characterJson[item] ) {
                 
