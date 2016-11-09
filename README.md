@@ -9,3 +9,21 @@ An Three.js app for generating character with components of models
 
 ## A very sketchy design:
 ![](img/sketchy-design.png)
+
+
+## Subdivide goal:
+
+- [ ] Entertainment App
+  - [ ] Basic Three.js Renderer (Display booth)
+    - [ ] a skeleton character
+    - [ ] Assemble of different body parts
+  - [ ] More advanced feature
+    - [ ] skeleton animation
+    - [ ] bone scaling
+    - [ ] control point and vertex displacement
+  - [ ] An app
+    - [ ] share to facebook, etc..
+    - [ ] single page app (js framework?)
+    - [ ] deployment
+- [ ] glTF game model exporter (combine different parts and output to one)
+- [ ] Unity plugin? (low poly character generator)
